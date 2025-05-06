@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Self, Any
 import vt
 
 from src.Artifacts.artifact_base import Artifact, Risk
-from src.vt_client import get_vt_client
+from src.external.vt_client import get_vt_client
 
 if TYPE_CHECKING:
     from email.message import EmailMessage

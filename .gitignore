@@ -2,3 +2,4 @@
 .idea
 .env
 src/mails
+*__pycache__/

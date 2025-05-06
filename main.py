@@ -1,5 +1,5 @@
 def main():
-    from src.parser import func
+    from src.draft import func
     func()
 
     # import vt
