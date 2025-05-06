@@ -4,8 +4,7 @@ from dataclasses import dataclass, fields
 from typing import Optional, List, Any, Self, Literal
 from email.message import EmailMessage
 
-from src.Artifacts import HTMLArtifact, FileArtifact, PlainTextArtifact
-from src.Artifacts.headers_artifact import HeaderArtifact
+from src.artifacts import HTMLArtifact, FileArtifact, PlainTextArtifact, HeaderArtifact
 
 
 @dataclass(kw_only=True)

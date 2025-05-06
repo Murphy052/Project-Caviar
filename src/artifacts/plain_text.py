@@ -1,9 +1,8 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING
 
-from src.Artifacts.artifact_base import Artifact, Risk
+from src.abstract.artifact_base import Artifact, Risk
 
 from src.external.phishsense import get_phishsense_model
 

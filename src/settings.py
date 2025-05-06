@@ -2,17 +2,11 @@ from __future__ import annotations
 
 from typing_extensions import Self
 
+from src.abstract.singleton import SingletonMeta
 
-class Settings:
+
+class Settings(metaclass=SingletonMeta):
     VT_API_KEY: str
-
-    __instance: Self | None = None
-
-    def __new__(cls, *args, **kwargs):
-        if not cls.__instance:
-            cls.__instance = super().__new__(cls)
-
-        return cls.__instance
 
     def __init__(self):
         import os

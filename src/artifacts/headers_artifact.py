@@ -3,8 +3,8 @@ from __future__ import annotations
 from email.message import EmailMessage
 from typing import Self, List, Union
 
-from src.Artifacts import PlainTextArtifact
-from src.Artifacts.artifact_base import Artifact, Risk
+from src.artifacts import PlainTextArtifact
+from src.abstract.artifact_base import Artifact, Risk
 
 
 class HeaderArtifact(Artifact):

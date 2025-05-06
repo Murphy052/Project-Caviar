@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Self
 
 from bs4 import BeautifulSoup
 
-from src.Artifacts.artifact_base import Artifact, Risk
+from src.abstract.artifact_base import Artifact, Risk
 
 if TYPE_CHECKING:
     from email.message import MIMEPart

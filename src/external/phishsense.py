@@ -4,19 +4,13 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
 
+from src.abstract.singleton import SingletonMeta
 
-class Phishsense1BModel:
-    __instance: Optional[Self] = None
 
+class Phishsense1BModel(metaclass=SingletonMeta):
     tokenizer: Any
     _base_model: Any
     model_with_lora: Any
-
-    def __new__(cls, *args, **kwargs):
-        if not cls.__instance:
-            cls.__instance = super().__new__(cls)
-
-        return cls.__instance
 
     def __init__(self):
         self.tokenizer = AutoTokenizer.from_pretrained("AcuteShrewdSecurity/Llama-Phishsense-1B")

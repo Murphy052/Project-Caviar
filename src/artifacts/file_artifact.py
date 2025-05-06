@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Self, Any
 
 import vt
 
-from src.Artifacts.artifact_base import Artifact, Risk
+from src.abstract.artifact_base import Artifact, Risk
 from src.external.vt_client import get_vt_client
 
 if TYPE_CHECKING:
