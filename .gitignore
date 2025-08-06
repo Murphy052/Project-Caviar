@@ -1,5 +1,7 @@
 .venv
 .idea
 .env
-src/mails
+mails
 *__pycache__/
+test.py
+src/presentation.eml

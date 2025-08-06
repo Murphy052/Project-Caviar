@@ -1,4 +1,4 @@
-from typing import Any, Optional, Self
+from typing import Any
 
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -13,9 +13,11 @@ class Phishsense1BModel(metaclass=SingletonMeta):
     model_with_lora: Any
 
     def __init__(self):
-        self.tokenizer = AutoTokenizer.from_pretrained("AcuteShrewdSecurity/Llama-Phishsense-1B")
-        self._base_model = AutoModelForCausalLM.from_pretrained("AcuteShrewdSecurity/Llama-Phishsense-1B")
-        self.model_with_lora = PeftModel.from_pretrained(self._base_model, "AcuteShrewdSecurity/Llama-Phishsense-1B")
+        model_name = "AcuteShrewdSecurity/Llama-Phishsense-1B"
+
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        self._base_model = AutoModelForCausalLM.from_pretrained(model_name)
+        self.model_with_lora = PeftModel.from_pretrained(self._base_model, model_name)
 
         if torch.cuda.is_available():
             self.model_with_lora = self.model_with_lora.to('cuda')
@@ -34,7 +36,7 @@ class Phishsense1BModel(metaclass=SingletonMeta):
             output = self.model_with_lora.generate(**inputs, max_new_tokens=5, temperature=0.01, do_sample=False)
 
         response = self.tokenizer.decode(output[0], skip_special_tokens=True).split("Answer:")[1].strip()
-        return response
+        return "TRUE" in response
 
 
 def get_phishsense_model() -> Phishsense1BModel:

@@ -26,9 +26,9 @@ class ArtifactRisk(ABC):
 
 class Artifact(ArtifactRisk, ABC):
     @abstractmethod
-    def _analyze(self) -> Risk:
+    def analyze(self):
         ...
 
     @abstractmethod
-    def report(self) -> str:
+    def report(self) -> dict:
         ...

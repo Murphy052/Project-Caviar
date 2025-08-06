@@ -1,6 +1,6 @@
 def main():
-    from src.draft import func
-    func()
+    from src.draft import test
+    test()
 
     # import vt
     #
