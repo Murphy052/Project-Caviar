@@ -9,7 +9,7 @@ from src.analyzer import ArtifactsAnalyzer
 
 
 def test():
-    file2 = "src/presentation.eml"
+    file2 = "mails/example.eml"
     with open(file2, "rb") as f:
         msg: EmailMessage = email.message_from_binary_file(f, policy=policy.default)
     m = ArtifactsAnalyzer.from_email_message(msg)
@@ -37,7 +37,7 @@ def test():
 def func():
     from email.iterators import _structure
 
-    file1 = "src/mails/example.eml"
+    # file1 = "src/mails/example.eml"
     file2 = "src/mails/multipart_example.eml"
     with open(file2, "rb") as f:
         msg: EmailMessage = email.message_from_binary_file(f, policy=policy.default)
@@ -46,7 +46,7 @@ def func():
         exit(1)
 
     m = ArtifactsAnalyzer.from_email_message(msg)
-    m.body_plain_text.analyze()
+    m.body.analyze()
 
     pprint(m)
     # pprint(m.received)

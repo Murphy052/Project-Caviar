@@ -4,17 +4,13 @@ from dataclasses import dataclass, field
 from typing import Optional, List, Any, Self
 from email.message import EmailMessage
 
-from src.artifacts import HTMLArtifact, FileArtifact, BodyArtifact, HeaderArtifact
+from src.artifacts import FileArtifact, BodyArtifact, HeaderArtifact
 
 
 @dataclass(kw_only=True)
 class ArtifactsAnalyzer:
     header: HeaderArtifact
-
-    # Body
-    markup: Optional[HTMLArtifact] = None
-    body_plain_text: Optional[BodyArtifact] = None
-
+    body: Optional[BodyArtifact] = None
     # Web
 
     # Files
@@ -32,28 +28,16 @@ class ArtifactsAnalyzer:
         if msg.defects:
             print("defects:", msg.defects)
 
-        # HEADER PART
         header = HeaderArtifact.from_email_message(msg)
-
-        # BODY PART
-        body_plain_text = None
-        urls = []
-        if plain_part := msg.get_body("plain"):
-            body_plain_text = BodyArtifact(plain_part.get_content())
-            urls = body_plain_text.get_urls()
-
-        markup = None
-        if html_part := msg.get_body("html"):
-            markup = HTMLArtifact.from_mime_part(html_part)
-            urls.extend(markup.get_urls())
+        body = BodyArtifact.from_email_message(msg)
+        #urls = body.get_urls()
 
         # FILES
         images, media, application = cls._email_message_walk(msg)
 
         return cls(
             header=header,
-            markup=markup,
-            body_plain_text=body_plain_text,
+            body=body,
             images=images,
             media=media,
             application=application,
@@ -85,12 +69,9 @@ class ArtifactsAnalyzer:
         report = {}
         risk = 0
 
-        if self.markup:
-            report.update({"Markup": self.markup.report()})
-            risk += self.markup.risk.value
-        if self.body_plain_text:
-            report.update({"Plain Body": self.body_plain_text.report()})
-            risk += self.body_plain_text.risk.value
+        if self.body:
+            report.update({"Body": self.body.report()})
+            risk += self.body.risk.value
 
         if len(self.application) >0:
             files_risk = 0

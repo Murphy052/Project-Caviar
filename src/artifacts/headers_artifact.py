@@ -5,7 +5,7 @@ from email.message import EmailMessage
 from email.utils import parsedate_to_datetime
 from typing import Self, List
 
-from src.abstract.artifact_base import Artifact, Risk
+from src.abstract.artifact_base import Artifact
 from src.external.phishsense import Phishsense1BModel
 
 
@@ -50,6 +50,12 @@ class HeaderArtifact(Artifact):
         if Phishsense1BModel().predict(self.subject):
             risk += 2
             report["risks"]["subject"] = "Phishsense1B: Malicious"
+
+        hops = self.trace_route()
+        report.update({
+            "hops": hops,
+            "delays": self.analyze_delays(hops),
+        })
 
         self._analys_stat = report
 

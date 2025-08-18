@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from abc import abstractmethod, ABC
 from enum import Enum
-from typing import Protocol, Optional
 
 
 class Risk(Enum):
